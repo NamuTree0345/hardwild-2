@@ -13,6 +13,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.event.player.PlayerSwapHandItemsEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
@@ -41,8 +42,9 @@ public class ShareInventory implements Listener {
     }
 
     @EventHandler
-    public void onInteract(PlayerInteractEvent event) throws IOException, InvalidConfigurationException {
-        if(event.getAction() == Action.RIGHT_CLICK_AIR && event.getPlayer().isSneaking()) {
+    public void onInteract(PlayerSwapHandItemsEvent event) throws IOException, InvalidConfigurationException {
+        if(event.getPlayer().isSneaking()) {
+            event.setCancelled(true);
             Inventory RewardEq = Bukkit.createInventory(
                     null, 54, Component.text("공유상자 - 당신의 Y 좌표: " + ChatColor.GOLD + event.getPlayer().getLocation().getBlockY(), NamedTextColor.AQUA, TextDecoration.BOLD));
             yamlConfiguration.load(file);
