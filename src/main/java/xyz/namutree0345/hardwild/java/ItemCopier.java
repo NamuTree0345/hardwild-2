@@ -1,5 +1,9 @@
 package xyz.namutree0345.hardwild.java;
 
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
+import net.kyori.adventure.text.format.TextDecoration;
+import net.kyori.adventure.text.serializer.plain.PlainComponentSerializer;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -22,18 +26,18 @@ public class ItemCopier implements Listener {
     private ItemStack getItemStack(Material material, String name) {
         ItemStack stack = new ItemStack(material);
         ItemMeta meta = stack.getItemMeta();
-        meta.setDisplayName(ChatColor.RESET + name);
+        meta.displayName(Component.text(name));
         stack.setItemMeta(meta);
         return stack;
     }
 
     @EventHandler
     public void clickInventory(InventoryClickEvent event) {
-        if(event.getView().getTitle().startsWith(ChatColor.AQUA + "" + ChatColor.BOLD + "사람이 많을수록 더 복사가 되는 아이템 복사기 (x")) {
+        if(PlainComponentSerializer.plain().serialize(event.getView().title()).contains("사람이 많을수록 더 복사가 되는 아이템 복사기 (x")) {
             if(event.getCurrentItem() != null) {
-                if(event.getCurrentItem().getItemMeta().getDisplayName().equals(ChatColor.RED + " "))
+                if(PlainComponentSerializer.plain().serialize(Objects.requireNonNull(event.getCurrentItem().getItemMeta().displayName())).equals(" "))
                     event.setCancelled(true);
-                else if(event.getCurrentItem().getItemMeta().getDisplayName().equals(ChatColor.GREEN + "여기를 클릭해 아이템을 복사하세요!")) {
+                else if(PlainComponentSerializer.plain().serialize(Objects.requireNonNull(event.getCurrentItem().getItemMeta().displayName())).equals("여기를 클릭해 아이템을 복사하세요!")) {
                     if(event.getView().getItem(23) != null && Objects.requireNonNull(event.getView().getItem(22)).getType() != Material.AIR) {
                         ItemStack is = event.getView().getItem(22);
                         int goppagui = Bukkit.getOnlinePlayers().size() == 1 ? 2 : Bukkit.getOnlinePlayers().size();
@@ -54,7 +58,7 @@ public class ItemCopier implements Listener {
         if(event.getAction() == Action.RIGHT_CLICK_BLOCK && Objects.requireNonNull(event.getClickedBlock()).getType() == Material.ENCHANTING_TABLE && event.getClickedBlock() != null) {
                 if(Objects.equals(((EnchantingTable) event.getClickedBlock().getState()).getCustomName(), ChatColor.YELLOW + "" + ChatColor.BOLD + "아이템 복사기")) {
                     event.setCancelled(true);
-                    Inventory i = Bukkit.createInventory(null, 27, ChatColor.AQUA + "" + ChatColor.BOLD + "사람이 많을수록 더 복사가 되는 아이템 복사기 (x" + (Bukkit.getOnlinePlayers().size() == 1 ? 2 : Bukkit.getOnlinePlayers().size()) + ")");
+                    Inventory i = Bukkit.createInventory(null, 27, Component.text("사람이 많을수록 더 복사가 되는 아이템 복사기 (x" + (Bukkit.getOnlinePlayers().size() == 1 ? 2 : Bukkit.getOnlinePlayers().size()) + ")", NamedTextColor.AQUA, TextDecoration.BOLD));
                     i.setItem(0, getItemStack(Material.RED_STAINED_GLASS_PANE, ChatColor.RED + " "));
                     i.setItem(1, getItemStack(Material.GREEN_STAINED_GLASS_PANE, ChatColor.RED + " "));
                     i.setItem(2, getItemStack(Material.LIGHT_BLUE_STAINED_GLASS_PANE, ChatColor.RED + " "));
