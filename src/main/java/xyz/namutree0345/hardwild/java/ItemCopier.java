@@ -35,18 +35,20 @@ public class ItemCopier implements Listener {
     public void clickInventory(InventoryClickEvent event) {
         if(PlainComponentSerializer.plain().serialize(event.getView().title()).contains("사람이 많을수록 더 복사가 되는 아이템 복사기 (x")) {
             if(event.getCurrentItem() != null) {
-                if(PlainComponentSerializer.plain().serialize(Objects.requireNonNull(event.getCurrentItem().getItemMeta().displayName())).equals(" "))
-                    event.setCancelled(true);
-                else if(PlainComponentSerializer.plain().serialize(Objects.requireNonNull(event.getCurrentItem().getItemMeta().displayName())).equals("여기를 클릭해 아이템을 복사하세요!")) {
-                    if(event.getView().getItem(23) != null && Objects.requireNonNull(event.getView().getItem(22)).getType() != Material.AIR) {
-                        ItemStack is = event.getView().getItem(22);
-                        int goppagui = Bukkit.getOnlinePlayers().size() == 1 ? 2 : Bukkit.getOnlinePlayers().size();
-                        assert is != null;
-                        is.setAmount((is.getAmount() * goppagui != 64 ? is.getAmount() * goppagui : 64));
-
+                if(event.getCurrentItem().getItemMeta().displayName() != null) {
+                    if (PlainComponentSerializer.plain().serialize(event.getCurrentItem().getItemMeta().displayName()).contains("여기를 클릭해 아이템을 복사하세요!")) {
+                        if (event.getView().getItem(23) != null && Objects.requireNonNull(event.getView().getItem(22)).getType() != Material.AIR) {
+                            ItemStack is = event.getView().getItem(22);
+                            event.setCancelled(true);
+                            int goppagui = Bukkit.getOnlinePlayers().size() == 1 ? 2 : Bukkit.getOnlinePlayers().size();
+                            assert is != null;
+                            //is.setAmount((is.getAmount() * goppagui != 64 ? is.getAmount() * goppagui : 64));
+                            is.setAmount(is.getAmount() * goppagui);
+                            event.getView().setItem(22, is);
+                            event.getView().getPlayer().sendMessage("복사를 완료했습니다.");
+                        }
+                    } else {
                         event.setCancelled(true);
-                        event.getView().setItem(22, is);
-                        event.getView().getPlayer().sendMessage("복사를 완료했습니다.");
                     }
                 }
             }
