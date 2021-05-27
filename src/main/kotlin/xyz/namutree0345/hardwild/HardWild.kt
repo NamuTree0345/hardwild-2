@@ -17,22 +17,7 @@ class HardWild : JavaPlugin() {
             animalNmsMap[EntityType.CHICKEN] = EntityTypes.CHICKEN
             animalNmsMap[EntityType.COW] = EntityTypes.COW
             animalNmsMap[EntityType.PIG] = EntityTypes.PIG
-            animalNmsMap[EntityType.FOX] = EntityTypes.FOX
-            animalNmsMap[EntityType.CAT] = EntityTypes.CAT
-            animalNmsMap[EntityType.PARROT] = EntityTypes.PARROT
-            animalNmsMap[EntityType.WOLF] = EntityTypes.WOLF
-            animalNmsMap[EntityType.OCELOT] = EntityTypes.OCELOT
-            animalNmsMap[EntityType.PANDA] = EntityTypes.PANDA
-            animalNmsMap[EntityType.POLAR_BEAR] = EntityTypes.POLAR_BEAR
-            animalNmsMap[EntityType.RABBIT] = EntityTypes.RABBIT
             animalNmsMap[EntityType.SHEEP] = EntityTypes.SHEEP
-            animalNmsMap[EntityType.TURTLE] = EntityTypes.TURTLE
-            animalNmsMap[EntityType.HORSE] = EntityTypes.HORSE
-            animalNmsMap[EntityType.SKELETON_HORSE] = EntityTypes.SKELETON_HORSE
-            animalNmsMap[EntityType.ZOMBIE_HORSE] = EntityTypes.ZOMBIE_HORSE
-            animalNmsMap[EntityType.MULE] = EntityTypes.MULE
-            animalNmsMap[EntityType.DONKEY] = EntityTypes.DONKEY
-            animalNmsMap[EntityType.LLAMA] = EntityTypes.LLAMA
         }
     }
 
@@ -40,6 +25,7 @@ class HardWild : JavaPlugin() {
         server.pluginManager.registerEvents(CustomEntitySpawn(), this)
         server.pluginManager.registerEvents(Salhae(), this)
         server.pluginManager.registerEvents(GodOfTheTree(), this)
+        server.pluginManager.registerEvents(DongjokNoBreak(), this)
     }
 
 }

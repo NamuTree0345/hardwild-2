@@ -66,11 +66,21 @@ class CustomAnimal(private val type: EntityTypes<out EntityAnimal>, loc: Locatio
         //  current attributes            add an attribute       the attribute to add            |lambda|        attribute value(acts very weird)
 
         goalSelector.a(0, PathfinderGoalMeleeAttack(this, 1.0, false))
-
-
         targetSelector.a(2, PathfinderGoalHurtByTarget(this, *arrayOfNulls(0)))
-        goalSelector.a(0, PathfinderGoalFloat(this))
         goalSelector.a(2, PathfinderGoalLookAtPlayer(this, EntityHuman::class.java, 8.0f))
+
+        goalSelector.a(0, PathfinderGoalFloat(this))
+        goalSelector.a(1, PathfinderGoalPanic(this, 1.25))
+        goalSelector.a(3, PathfinderGoalBreed(this, 1.0))
+        goalSelector.a(
+            4,
+            PathfinderGoalTempt(this, 1.2, RecipeItemStack.a(*arrayOf<IMaterial>(Items.CARROT_ON_A_STICK)), false)
+        )
+        //goalSelector.a(4, PathfinderGoalTempt(this, 1.2, false, EntityPig.bq))
+        goalSelector.a(5, PathfinderGoalFollowParent(this, 1.1))
+        goalSelector.a(6, PathfinderGoalRandomStrollLand(this, 1.0))
+        goalSelector.a(7, PathfinderGoalLookAtPlayer(this, EntityHuman::class.java, 6.0f))
+        goalSelector.a(8, PathfinderGoalRandomLookaround(this))
     }
 
 }
