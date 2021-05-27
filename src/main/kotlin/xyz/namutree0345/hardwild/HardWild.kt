@@ -6,6 +6,8 @@ import org.bukkit.entity.EntityType
 import org.bukkit.entity.Horse
 import org.bukkit.entity.Mule
 import org.bukkit.plugin.java.JavaPlugin
+import xyz.namutree0345.hardwild.java.ItemCopier
+import xyz.namutree0345.hardwild.java.ShareInventory
 
 class HardWild : JavaPlugin() {
 
@@ -26,6 +28,8 @@ class HardWild : JavaPlugin() {
         server.pluginManager.registerEvents(Salhae(), this)
         server.pluginManager.registerEvents(GodOfTheTree(), this)
         server.pluginManager.registerEvents(DongjokNoBreak(), this)
+        server.pluginManager.registerEvents(ShareInventory(), this)
+        server.pluginManager.registerEvents(ItemCopier(), this)
     }
 
 }
